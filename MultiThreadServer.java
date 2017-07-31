@@ -2,10 +2,15 @@ import java.io.IOException;
 import java.io.PrintStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.ArrayDeque;
+import java.util.PriorityQueue;
+import java.util.Queue;
 import java.util.Scanner;
 
 public class MultiThreadServer implements Runnable {
     Socket csocket;
+    static Queue<Socket> queue=new ArrayDeque<Socket>();
+
     MultiThreadServer(Socket csocket) {
 
         this.csocket = csocket;
@@ -20,12 +25,21 @@ public class MultiThreadServer implements Runnable {
         ServerSocket ssock = new ServerSocket(1234);
         System.out.println("Listening...");
 
-        while (clientCount <= n) {
-            Socket sock = ssock.accept();
-            System.out.println("Connected " + clientCount);
-            new Thread(new MultiThreadServer(sock)).start();
-            clientCount++;
+        while (true) {
+
+            if (clientCount <= n) {
+                Socket sock = ssock.accept();
+                System.out.println("Connected " + clientCount);
+                new Thread(new MultiThreadServer(sock)).start();
+                clientCount++;
+            }else {
+                Socket sock = ssock.accept();
+                queue.add(sock);
+            }
+
         }
+
+
     }
 
   @Override
@@ -37,3 +51,7 @@ public class MultiThreadServer implements Runnable {
         }
     }
 }
+
+
+
+
