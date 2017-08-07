@@ -7,14 +7,13 @@ import java.util.Queue;
 import java.util.Scanner;
 import java.util.concurrent.*;
 
-import static com.sun.activation.registries.LogSupport.log;
+//import static com.sun.activation.registries.LogSupport.log;
 
 public class MultiThreadServer implements Runnable {
     Socket csocket;
     static ExecutorService executorService;
     public static int QUEUE_SIZE = 2;
     public static int MIN_SIZE = 2;
-   // static Queue<Socket> queue = new ArrayDeque<Socket>();
     final static BlockingQueue<Runnable> queueR = new ArrayBlockingQueue<Runnable>(QUEUE_SIZE);
 
 
@@ -58,8 +57,7 @@ public class MultiThreadServer implements Runnable {
         public getServerDetails(Socket socket, int clientNumber) {
             this.socket = socket;
             this.clientNumber = clientNumber;
-            log("New connection with client# " + clientNumber + " at " + socket);
-
+           
         }
     }
 
