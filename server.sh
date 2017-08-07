@@ -1,4 +1,4 @@
-#javac src/MultiThreadServer.java
-#java - MultiThreadServer | java
+javac src/MultiThreadServer.java
+java -cp ./src/MultiThreadServer $1  
 
-javac src/MultiThreadServer.java | java MultiThreadServer.class
+
